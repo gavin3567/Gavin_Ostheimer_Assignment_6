@@ -12,8 +12,6 @@ namespace Assignment_6.Models
         [Required]
         public int MovieID { get; set; }
         [Required]
-        public string MovieCategory { get; set; }
-        [Required]
         public string MovieTitle { get; set; }
         [Required]
         public short MovieYear { get; set; }
@@ -24,5 +22,10 @@ namespace Assignment_6.Models
         public bool MovieEdited { get; set; }
         public string MovieLent { get; set; }
         public string MovieNotes { get; set; }
+
+        // Build Foreign Key Relationship
+        [Required]
+        public int CategoryId { get; set; }
+        public MovieCategory MovieCategory { get; set; }
     }
 }

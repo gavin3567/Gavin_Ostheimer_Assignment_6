@@ -1,5 +1,6 @@
 ﻿using Assignment_6.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,11 @@ namespace Assignment_6.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private MoviesContext blahContext { get; set; }
+        private MoviesContext mContext { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, MoviesContext someName)
+        public HomeController(MoviesContext someName)
         {
-            _logger = logger;
-            blahContext = someName;
+            mContext = someName;
         }
 
         public IActionResult Index()
@@ -33,6 +32,8 @@ namespace Assignment_6.Controllers
         [HttpGet]
         public IActionResult EnterMovies()
         {
+            ViewBag.MovieCategories = mContext.MovieCategories.ToList();
+
             return View();
         }
 
@@ -42,8 +43,8 @@ namespace Assignment_6.Controllers
             //Added from class comments
             if (ModelState.IsValid)
             {
-                blahContext.Add(ar);
-                blahContext.SaveChanges();
+                mContext.Add(ar);
+                mContext.SaveChanges();
 
                 return View("Confirmation", ar);
             }
@@ -53,15 +54,31 @@ namespace Assignment_6.Controllers
             }
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult MovieList()
+        {
+            ViewBag.MovieCategories = mContext.MovieCategories.ToList();
+
+            var movies = mContext.Responses
+                .Include(x => x.MovieCategory)
+                .ToList();
+
+            return View(movies);
+        }
+
+        public IActionResult Edit()
+        {
+            ViewBag.MovieCategories = mContext.MovieCategories.ToList();
+
+            var movie = mContext.Responses.Single();
+
+            return View("EnterMovies");
+        }
+
+        public IActionResult Delete()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

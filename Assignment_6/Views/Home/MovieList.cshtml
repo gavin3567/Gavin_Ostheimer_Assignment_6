@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Movie List";
+}
+
+@model List<MovieResponse>
+
+<table class="table table-bordered table-striped">
+
+    <thead class="font-weight-bold">
+        <tr>
+            <td>Movie Category</td>
+            <td>Movie Title</td>
+            <td>Movie Year</td>
+            <td>Movie Director</td>
+            <td>Movie Rating</td>
+            <td>Movie Edited</td>
+            <td>Movie Lent</td>
+            <td>Movie Notes</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var x in Model)
+            {
+        <tr>
+            <td>@x.MovieCategory.CategoryName</td>
+            <td>@x.MovieTitle</td>
+            <td>@x.MovieYear</td>
+            <td>@x.MovieDirector</td>
+            <td>@x.MovieRating</td>
+            <td>@x.MovieEdited</td>
+            <td>@x.MovieLent</td>
+            <td>@x.MovieNotes</td>
+
+            <td><a asp-controller="Home" asp-action="Edit" asp-route-movieid="@x.MovieID">Edit</a></td>
+            <td><a asp-controller="Home" asp-action="Delete">Delete</a></td>
+        </tr>
+            }
+    </tbody>
+
+</table>

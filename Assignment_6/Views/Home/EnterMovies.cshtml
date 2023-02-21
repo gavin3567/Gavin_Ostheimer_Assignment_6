@@ -10,7 +10,13 @@
 <div>
     <form method="post">
         <label asp-for="MovieCategory">Movie Category:</label>
-        <input asp-for="MovieCategory" /><br />
+        <select asp-for="CategoryId">
+            <option value="">Select a Category</option>
+            @foreach (MovieCategory m in ViewBag.MovieCategories)
+            {
+                <option value="@m.CategoryId">@m.CategoryName</option>
+            }
+        </select><br />
 
         <label asp-for="MovieTitle">Movie Title:</label>
         <input asp-for="MovieTitle" /><br />
