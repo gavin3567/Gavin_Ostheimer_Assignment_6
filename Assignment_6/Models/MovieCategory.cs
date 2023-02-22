@@ -10,7 +10,7 @@ namespace Assignment_6.Models
     {
         [Key]
         [Required]
-        public int CategoryId { get; set; }
+        public int MovieCategoryId { get; set; }
         public string CategoryName { get; set; }
     }
 }

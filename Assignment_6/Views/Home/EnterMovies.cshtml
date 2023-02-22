@@ -9,12 +9,15 @@
 
 <div>
     <form method="post">
+
+        <div asp-validation-summary="All"></div>
+
         <label asp-for="MovieCategory">Movie Category:</label>
-        <select asp-for="CategoryId">
+        <select asp-for="MovieCategoryId">
             <option value="">Select a Category</option>
             @foreach (MovieCategory m in ViewBag.MovieCategories)
             {
-                <option value="@m.CategoryId">@m.CategoryName</option>
+                <option value="@m.MovieCategoryId">@m.CategoryName</option>
             }
         </select><br />
 

@@ -50,6 +50,8 @@ namespace Assignment_6.Controllers
             }
             else
             {
+                ViewBag.MovieCategories = mContext.MovieCategories.ToList();
+
                 return View();
             }
         }
@@ -66,19 +68,41 @@ namespace Assignment_6.Controllers
             return View(movies);
         }
 
-        public IActionResult Edit()
+        [HttpGet]
+        public IActionResult Edit (int movieid)
         {
             ViewBag.MovieCategories = mContext.MovieCategories.ToList();
 
-            var movie = mContext.Responses.Single();
+            var movie = mContext.Responses.Single(x => x.MovieID == movieid);
 
-            return View("EnterMovies");
+            return RedirectToAction("EnterMovies", movie);
         }
 
-        public IActionResult Delete()
+        [HttpPost]
+        public IActionResult Edit(MovieResponse blah)
         {
-            return View();
+            mContext.Update(blah);
+            mContext.SaveChanges();
+
+            return View("MovieList");
         }
 
+        [HttpGet]
+        public IActionResult Delete(int movieid)
+        {
+            var movie = mContext.Responses.Single(x => x.MovieID == movieid);
+
+            return View(movie);
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(MovieResponse ar)
+        {
+            mContext.Responses.Remove(ar);
+            mContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
+        }
     }
 }

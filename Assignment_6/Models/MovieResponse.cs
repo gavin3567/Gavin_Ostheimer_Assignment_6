@@ -11,13 +11,13 @@ namespace Assignment_6.Models
         [Key]
         [Required]
         public int MovieID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Inputting the movie title is required")]
         public string MovieTitle { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Inputting the movie year is required")]
         public short MovieYear { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Director's name is required")]
         public string MovieDirector { get; set; }
-        [Required]
+        [Required (ErrorMessage = "Movie Rating is required")]
         public string MovieRating { get; set; }
         public bool MovieEdited { get; set; }
         public string MovieLent { get; set; }
@@ -25,7 +25,7 @@ namespace Assignment_6.Models
 
         // Build Foreign Key Relationship
         [Required]
-        public int CategoryId { get; set; }
+        public int MovieCategoryId { get; set; }
         public MovieCategory MovieCategory { get; set; }
     }
 }
